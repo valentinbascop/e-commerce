@@ -11,14 +11,13 @@
     <h2>Ces produits peuvent vous intéresser :</h2>
     <div class="slider-container">
         @foreach ($products as $product)
-            <div class="product-item">
+            <a href="{{ route('frontend.products.show', $product->id) }}" class="product-item">
                 <div class="product-item-img">
                     <img src="{{ $product->getPicture()->getImageUrl() }}" alt="Product Image">
                 </div>
                 <h3>{{ $product->title }}</h3>
                 <p>Prix : {{ $product->price }} €</p>
-                <a href="{{ route('frontend.products.show', $product->id) }}" class="btn-see-product">Voir le produit</a>
-            </div>
+            </a>
         @endforeach
     </div>
 

@@ -102,7 +102,7 @@ class ProductController extends Controller
     
         $product->update($data);
     
-        return redirect()->route('products.index');
+        return redirect()->route('backend.products.index');
     }
 
     /**

@@ -14,7 +14,10 @@
             <div class="product-details-right">
                 <p class="price">Prix : {{ $product->price }} €</p>
                 <p class="description">{{ $product->description }}</p>
-                <button class="add-to-cart">Ajouter au panier</button>
+                <form action="{{ route('frontend.cart.add', $product) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="add-to-cart">Ajouter au panier</button>
+                </form>
             </div>
 
         </div>
