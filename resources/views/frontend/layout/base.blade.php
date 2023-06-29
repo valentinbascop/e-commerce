@@ -22,6 +22,9 @@
   </div>
   <div class="nav-item-container">
     <ul>
+      <li>
+        <a href="{{ route('frontend.cart') }}">Panier</a>
+      </li>
       @guest
       <li>
           <a href="{{ route('frontend.register') }}">S'inscrire</a>

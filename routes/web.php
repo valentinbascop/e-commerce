@@ -24,7 +24,13 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
     // Gestion du profil utilisateur
     Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit')->middleware('auth');
     Route::put('/profile/update', 'ProfileController@update')->name('profile.update')->middleware('auth');
+
+    Route::get('/cart', 'CartController@showCart')->name('cart');
+    Route::post('/cart/add/{product}', 'CartController@addToCart')->name('cart.add');
+    Route::delete('/cart/remove/{cartItem}', 'CartController@removeFromCart')->name('cart.remove');
+
 });
+
 
 // Route côté back
 Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'as' => 'backend.'], function () {
