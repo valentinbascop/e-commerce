@@ -120,8 +120,7 @@ class ProductController extends Controller
     public function deleteImage($productId, $imageId)
     {
         $product = Product::findOrFail($productId);
-        $image = $product->images()->findOrFail($imageId);
-        dd($image);
+        $image = $product->pictures()->findOrFail($imageId);
     
         // Supprimer l'image du disque
         $imagePath = $image->path; 
