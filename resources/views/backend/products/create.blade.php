@@ -13,7 +13,7 @@
         @endforeach
       @endif
 
-<form action="{{ isset($product) ? route('backend.products.update', $product->id) : route('products.store') }}" method="POST" class="form-create-update" enctype="multipart/form-data">
+<form action="{{ isset($product) ? route('backend.products.update', $product->id) : route('backend.products.store') }}" method="POST" class="form-create-update" enctype="multipart/form-data">
     @csrf
     @if(isset($product))
         @method('PUT')
@@ -39,15 +39,31 @@
             <label for="image">Image:</label>
             <input type="file" name="images[]" data-role="file" multiple>
     </div>
-
-        <button type="submit">
-            @if(isset($product))
-                Mettre à jour
-            @else
-                Créer
-            @endif
-        </button>
-    </form>
+    @if (isset($images) && count($images) > 0)
+        <div class="form-row-picture">
+            <label>Images actuelles:</label>
+            <ul class="image-list">
+                @foreach ($images as $image)
+                    <li>
+                        <img src="{{ $image->getImageUrl() }}" alt="Product Image">
+                        <form action="{{ route('backend.products.deleteImage', [$product->id, $image->id]) }}" method="POST" class="delete-image-form">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn-delete-image">Supprimer</button>
+                        </form>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <button type="submit" class="update-btn">
+        @if(isset($product))
+            Mettre à jour
+        @else
+            Créer
+        @endif
+    </button>
+</form>
 
     <a href="{{ route('backend.products.index') }}">Retour à la liste des produits</a>
 </div>

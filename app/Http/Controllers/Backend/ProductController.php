@@ -59,7 +59,7 @@ class ProductController extends Controller
             $product->attachFiles($data['images']);
         }
     
-        return redirect()->route('products.index');
+        return redirect()->route('backend.products.index');
     }
     
 
@@ -69,8 +69,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        return view('backend.products.create', ['product' => $product]);
-    } 
+        $images = $product->pictures; // Récupérer toutes les images du produit
+        return view('backend.products.create', ['product' => $product, 'images' => $images]);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -102,7 +103,7 @@ class ProductController extends Controller
     
         $product->update($data);
     
-        return redirect()->route('backend.products.index');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -113,6 +114,26 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
     
-        return redirect()->route('products.index')->with('success', 'Produit supprimé avec succès');
+        return redirect()->route('backend.products.index')->with('success', 'Produit supprimé avec succès');
     }
+
+    public function deleteImage($productId, $imageId)
+    {
+        $product = Product::findOrFail($productId);
+        $image = $product->images()->findOrFail($imageId);
+        dd($image);
+    
+        // Supprimer l'image du disque
+        $imagePath = $image->path; 
+        if (Storage::disk('public')->exists($imagePath)) {
+            Storage::disk('public')->delete($imagePath);
+        }
+    
+        // Supprimer l'entrée de la base de données
+        $image->delete();
+    
+        return redirect()->back()->with('success', 'Image supprimée avec succès.');
+    }
+    
+
 }

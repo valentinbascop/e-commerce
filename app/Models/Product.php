@@ -15,6 +15,7 @@ class Product extends Model
         'title',
         'price',
         'description',
+        'image'
     ];
 
     public function pictures(): HasMany
@@ -34,7 +35,7 @@ class Product extends Model
             }
             $filename = $file->store('products/' . $this->id, 'public');
             $pictures[] = [
-                'filename' => $filename
+                'filename' => $filename 
             ];
         } 
         if (count($pictures) > 0){
