@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProductController extends Controller
 {
@@ -103,7 +105,7 @@ class ProductController extends Controller
     
         $product->update($data);
     
-        return redirect()->route('products.index');
+        return redirect()->route('backend.products.index');
     }
 
     /**
@@ -121,9 +123,10 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($productId);
         $image = $product->pictures()->findOrFail($imageId);
-    
+        // dd($image);
         // Supprimer l'image du disque
-        $imagePath = $image->path; 
+        $imagePath = $image->filename; 
+        // dd($imagePath);
         if (Storage::disk('public')->exists($imagePath)) {
             Storage::disk('public')->delete($imagePath);
         }

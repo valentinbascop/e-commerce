@@ -46,6 +46,21 @@
                     </tr>
                 </tfoot>
             </table>
+
+            <!-- Stripe Payment Button -->
+            <form action="{{ route('frontend.cart.pay') }}" method="POST">
+                @csrf
+                <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="YOUR_STRIPE_PUBLISHABLE_KEY"
+                    data-amount="{{ $total * 100 }}"
+                    data-name="Mon magasin"
+                    data-description="Paiement de la commande"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto"
+                    data-currency="eur"
+                ></script>
+            </form>
         @endif
     </div>
 </div>

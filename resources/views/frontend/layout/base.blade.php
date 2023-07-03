@@ -22,9 +22,6 @@
   </div>
   <div class="nav-item-container">
     <ul>
-      <li>
-        <a href="{{ route('frontend.cart') }}">Panier</a>
-      </li>
       @guest
       <li>
           <a href="{{ route('frontend.register') }}">S'inscrire</a>
@@ -33,6 +30,9 @@
           <a href="{{ route('frontend.login') }}">Connexion</a>
         </li>
       @else
+      <li>
+        <a href="{{ route('frontend.cart') }}">Panier</a>
+      </li>
         <li>
           <a href="{{ route('frontend.seeInfo') }}">Profil</a>
         </li>
